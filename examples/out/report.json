@@ -1,0 +1,680 @@
+{
+  "tool": "google-one-tools-offer-reconcile",
+  "version": "1.0.0",
+  "records": [
+    {
+      "file": "examples/in/scan_result_gb.json",
+      "tag": "scan_result_gb",
+      "candidates": 182,
+      "offers": 61
+    },
+    {
+      "file": "examples/in/scan_result_us.json",
+      "tag": "us",
+      "candidates": 179,
+      "offers": 59
+    }
+  ],
+  "delisted_policy": [
+    "g1.30tb"
+  ],
+  "findings": [
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.100gb.1month_eft",
+      "count": 2,
+      "detail": "g1.100gb.1month_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.100gb.3months_eft",
+      "count": 2,
+      "detail": "g1.100gb.3months_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.100gb.3months_ip_85p.acq",
+      "count": 2,
+      "detail": "g1.100gb.3months_ip_85p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.200gb.1month_eft",
+      "count": 2,
+      "detail": "g1.200gb.1month_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.200gb.3months_eft",
+      "count": 2,
+      "detail": "g1.200gb.3months_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.200gb.3months_ip_85p.acq",
+      "count": 2,
+      "detail": "g1.200gb.3months_ip_85p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.20tb.3months_ip_75p.acq",
+      "count": 2,
+      "detail": "g1.20tb.3months_ip_75p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.1month_eft",
+      "count": 2,
+      "detail": "g1.2tb.1month_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.3months_eft",
+      "count": 2,
+      "detail": "g1.2tb.3months_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.3months_ip_85p.acq",
+      "count": 2,
+      "detail": "g1.2tb.3months_ip_85p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.6months_eft",
+      "count": 2,
+      "detail": "g1.2tb.6months_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.ai.subs_variant",
+      "count": 5,
+      "detail": "g1.2tb.ai.subs_variant appears 5 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.subs_variant",
+      "count": 3,
+      "detail": "g1.2tb.subs_variant appears 3 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.30gb.1month_eft",
+      "count": 2,
+      "detail": "g1.30gb.1month_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.30gb.3months_ip_85p.acq",
+      "count": 2,
+      "detail": "g1.30gb.3months_ip_85p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.helium.3months_ip_75p.acq",
+      "count": 2,
+      "detail": "g1.helium.3months_ip_75p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.play.helium",
+      "count": 5,
+      "detail": "g1.play.helium appears 5 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.100gb.1month_eft",
+      "count": 2,
+      "detail": "g1.100gb.1month_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.100gb.3months_eft",
+      "count": 2,
+      "detail": "g1.100gb.3months_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.100gb.3months_ip_85p.acq",
+      "count": 2,
+      "detail": "g1.100gb.3months_ip_85p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.200gb.1month_eft",
+      "count": 2,
+      "detail": "g1.200gb.1month_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.200gb.3months_eft",
+      "count": 2,
+      "detail": "g1.200gb.3months_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.200gb.3months_ip_85p.acq",
+      "count": 2,
+      "detail": "g1.200gb.3months_ip_85p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.20tb.3months_ip_75p.acq",
+      "count": 2,
+      "detail": "g1.20tb.3months_ip_75p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.1month_eft",
+      "count": 2,
+      "detail": "g1.2tb.1month_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.3months_eft",
+      "count": 2,
+      "detail": "g1.2tb.3months_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.3months_ip_85p.acq",
+      "count": 2,
+      "detail": "g1.2tb.3months_ip_85p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.6months_eft",
+      "count": 2,
+      "detail": "g1.2tb.6months_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.ai.subs_variant",
+      "count": 5,
+      "detail": "g1.2tb.ai.subs_variant appears 5 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.subs_variant",
+      "count": 3,
+      "detail": "g1.2tb.subs_variant appears 3 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.30gb.1month_eft",
+      "count": 2,
+      "detail": "g1.30gb.1month_eft appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.30gb.3months_ip_85p.acq",
+      "count": 2,
+      "detail": "g1.30gb.3months_ip_85p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.helium.3months_ip_75p.acq",
+      "count": 2,
+      "detail": "g1.helium.3months_ip_75p.acq appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "warning",
+      "code": "duplicate_offer",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.youtube_premium_individual_add_on",
+      "count": 2,
+      "detail": "g1.youtube_premium_individual_add_on appears 2 times with the token redacted; distinct tokens cannot be distinguished from a scanner duplicate"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.100gb",
+      "detail": "g1.100gb has different phase shapes across regions: regions ['scan_result_gb'] -> (('1590000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('1990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.100gb.1month_eft",
+      "detail": "g1.100gb.1month_eft has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P1M', 1, True), ('1590000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('1590000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P1M', 1, True), ('1990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('1990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.100gb.3months_eft",
+      "detail": "g1.100gb.3months_eft has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P13W1D', 1, True), ('1590000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('1590000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P13W1D', 1, True), ('1990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('1990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.100gb.3months_ip_85p.acq",
+      "detail": "g1.100gb.3months_ip_85p.acq has different phase shapes across regions: regions ['scan_result_gb'] -> (('290000', 'GBP', 'P1M', 3, False), ('1590000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('1590000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('290000', 'USD', 'P1M', 3, False), ('1990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('1990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.100gb.annual",
+      "detail": "g1.100gb.annual has different phase shapes across regions: regions ['scan_result_gb'] -> (('15990000', 'GBP', 'P1Y', 0, False),); regions ['us'] -> (('19990000', 'USD', 'P1Y', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.10tb",
+      "detail": "g1.10tb has different phase shapes across regions: regions ['scan_result_gb'] -> (('39990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('49990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.10tb.annual",
+      "detail": "g1.10tb.annual has different phase shapes across regions: regions ['scan_result_gb'] -> (('399990000', 'GBP', 'P1Y', 0, False),); regions ['us'] -> (('499990000', 'USD', 'P1Y', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.200gb",
+      "detail": "g1.200gb has different phase shapes across regions: regions ['scan_result_gb'] -> (('2490000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('2990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.200gb.1month_eft",
+      "detail": "g1.200gb.1month_eft has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P4W3D', 1, True), ('2490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('2490000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P4W3D', 1, True), ('2990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('2990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.200gb.3months_eft",
+      "detail": "g1.200gb.3months_eft has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P13W1D', 1, True), ('2490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('2490000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P13W1D', 1, True), ('2990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('2990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.200gb.3months_ip_85p.acq",
+      "detail": "g1.200gb.3months_ip_85p.acq has different phase shapes across regions: regions ['scan_result_gb'] -> (('390000', 'GBP', 'P1M', 3, False), ('2490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('2490000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('490000', 'USD', 'P1M', 3, False), ('2990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('2990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.200gb.annual",
+      "detail": "g1.200gb.annual has different phase shapes across regions: regions ['scan_result_gb'] -> (('24990000', 'GBP', 'P1Y', 0, False),); regions ['us'] -> (('29990000', 'USD', 'P1Y', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.20tb",
+      "detail": "g1.20tb has different phase shapes across regions: regions ['scan_result_gb'] -> (('79990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('99990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.20tb.3months_ip_75p.acq",
+      "detail": "g1.20tb.3months_ip_75p.acq has different phase shapes across regions: regions ['scan_result_gb'] -> (('19990000', 'GBP', 'P1M', 3, False), ('79990000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('79990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('24990000', 'USD', 'P1M', 3, False), ('99990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('99990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.20tb.v2",
+      "detail": "g1.20tb.v2 has different phase shapes across regions: regions ['scan_result_gb'] -> (('79990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('99990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb",
+      "detail": "g1.2tb has different phase shapes across regions: regions ['scan_result_gb'] -> (('7990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('9990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.1month_eft",
+      "detail": "g1.2tb.1month_eft has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P4W3D', 1, True), ('7990000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('7990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P4W3D', 1, True), ('9990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('9990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.3months_eft",
+      "detail": "g1.2tb.3months_eft has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P13W1D', 1, True), ('7990000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('7990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P13W1D', 1, True), ('9990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('9990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.3months_ip_85p.acq",
+      "detail": "g1.2tb.3months_ip_85p.acq has different phase shapes across regions: regions ['scan_result_gb'] -> (('1190000', 'GBP', 'P1M', 3, False), ('7990000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('7990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('1490000', 'USD', 'P1M', 3, False), ('9990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('9990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.6months_eft",
+      "detail": "g1.2tb.6months_eft has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P26W2D', 1, True), ('7990000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('7990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P26W2D', 1, True), ('9990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('9990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.ai",
+      "detail": "g1.2tb.ai has different phase shapes across regions: regions ['scan_result_gb'] -> (('18990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('19990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.ai.annual",
+      "detail": "g1.2tb.ai.annual has different phase shapes across regions: regions ['scan_result_gb'] -> (('189990000', 'GBP', 'P1Y', 0, False),); regions ['us'] -> (('199990000', 'USD', 'P1Y', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.ai.subs_variant",
+      "detail": "g1.2tb.ai.subs_variant has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P1Y', 1, True), ('18990000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('0', 'GBP', 'P6M', 1, True), ('18990000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('18990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P1Y', 1, True), ('19990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('0', 'USD', 'P6M', 1, True), ('19990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('19990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.annual",
+      "detail": "g1.2tb.annual has different phase shapes across regions: regions ['scan_result_gb'] -> (('79990000', 'GBP', 'P1Y', 0, False),); regions ['us'] -> (('99990000', 'USD', 'P1Y', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.2tb.subs_variant",
+      "detail": "g1.2tb.subs_variant has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P13W1D', 1, True), ('9490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('0', 'GBP', 'P6M', 1, True), ('9490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('9490000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P13W1D', 1, True), ('9990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('0', 'USD', 'P6M', 1, True), ('9990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('9990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.30gb",
+      "detail": "g1.30gb has different phase shapes across regions: regions ['scan_result_gb'] -> (('690000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('890000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.30gb.1month_eft",
+      "detail": "g1.30gb.1month_eft has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P1M', 1, True), ('690000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('690000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('0', 'USD', 'P1M', 1, True), ('890000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('890000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.30gb.3months_ip_85p.acq",
+      "detail": "g1.30gb.3months_ip_85p.acq has different phase shapes across regions: regions ['scan_result_gb'] -> (('150000', 'GBP', 'P1M', 3, False), ('690000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('690000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('150000', 'USD', 'P1M', 3, False), ('890000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('890000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.30gb.annual",
+      "detail": "g1.30gb.annual has different phase shapes across regions: regions ['scan_result_gb'] -> (('7090000', 'GBP', 'P1Y', 0, False),); regions ['us'] -> (('8990000', 'USD', 'P1Y', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.30tb",
+      "detail": "g1.30tb has different phase shapes across regions: regions ['scan_result_gb'] -> (('119990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('149990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.5tb",
+      "detail": "g1.5tb has different phase shapes across regions: regions ['scan_result_gb'] -> (('18990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('19990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.5tb.annual",
+      "detail": "g1.5tb.annual has different phase shapes across regions: regions ['scan_result_gb'] -> (('189990000', 'GBP', 'P1Y', 0, False),); regions ['us'] -> (('199990000', 'USD', 'P1Y', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.ai.pro",
+      "detail": "g1.ai.pro has different phase shapes across regions: regions ['scan_result_gb'] -> (('189990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('199990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.helium.3months_ip_75p.acq",
+      "detail": "g1.helium.3months_ip_75p.acq has different phase shapes across regions: regions ['scan_result_gb'] -> (('1090000', 'GBP', 'P1M', 3, False), ('4490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('4490000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('1290000', 'USD', 'P1M', 3, False), ('4990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('4990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.play.20tb",
+      "detail": "g1.play.20tb has different phase shapes across regions: regions ['scan_result_gb'] -> (('79990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('99990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.play.ai.pro",
+      "detail": "g1.play.ai.pro has different phase shapes across regions: regions ['scan_result_gb'] -> (('189990000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('199990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.play.helium",
+      "detail": "g1.play.helium has different phase shapes across regions: regions ['scan_result_gb'] -> (('0', 'GBP', 'P1Y', 1, True), ('4490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('0', 'GBP', 'P1M', 1, True), ('4490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('0', 'GBP', 'P3M', 1, True), ('4490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('0', 'GBP', 'P6M', 1, True), ('4490000', 'GBP', 'P1M', 0, False)); regions ['scan_result_gb'] -> (('4490000', 'GBP', 'P1M', 0, False),); regions ['us'] -> (('4990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "info",
+      "code": "region_divergence",
+      "file": "",
+      "product": "g1.youtube_premium_individual_add_on",
+      "detail": "g1.youtube_premium_individual_add_on has different phase shapes across regions: regions ['us'] -> (('0', 'USD', 'P1M', 1, True), ('11990000', 'USD', 'P1M', 0, False)); regions ['us'] -> (('11990000', 'USD', 'P1M', 0, False),)"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.100gb.3months_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P13W1D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.200gb.1month_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P4W3D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.200gb.3months_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P13W1D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.1month_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P4W3D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.3months_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P13W1D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.6months_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P26W2D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.2tb.subs_variant",
+      "detail": "period must be an ISO-8601 duration, got 'P13W1D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.100gb.3months_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P13W1D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.200gb.1month_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P4W3D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.200gb.3months_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P13W1D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.1month_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P4W3D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.3months_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P13W1D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.6months_eft",
+      "detail": "period must be an ISO-8601 duration, got 'P26W2D'"
+    },
+    {
+      "severity": "error",
+      "code": "schema",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.2tb.subs_variant",
+      "detail": "period must be an ISO-8601 duration, got 'P13W1D'"
+    },
+    {
+      "severity": "error",
+      "code": "stale_delisted_sku",
+      "file": "examples/in/scan_result_gb.json",
+      "product": "g1.30tb",
+      "detail": "g1.30tb is declared delisted upstream but is still advertised in this record"
+    },
+    {
+      "severity": "error",
+      "code": "stale_delisted_sku",
+      "file": "examples/in/scan_result_us.json",
+      "product": "g1.30tb",
+      "detail": "g1.30tb is declared delisted upstream but is still advertised in this record"
+    }
+  ],
+  "summary": {
+    "error": 16,
+    "warning": 34,
+    "info": 38,
+    "records": 2
+  },
+  "ok": false
+}

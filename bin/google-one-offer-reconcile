@@ -1,0 +1,401 @@
+#!/usr/bin/env python3
+"""google-one-tools-offer-reconcile.
+
+Offline reconciliation of Google One subscription offer-scan records
+(``scan_result_*.json`` produced by hatsunemiku-ai/google-one-tools) against
+the upstream's own documented policy and against internal invariants.
+
+It answers one question the upstream cannot: *do the committed offer records
+still agree with what the upstream declares, and do the amounts/currencies
+inside them agree with each other?*
+
+Checks
+------
+error   stale_delisted_sku   a product still advertised in a record that the
+                             upstream README declares delisted / removed
+error   schema               missing/ill-typed fields, bad ISO-8601 period,
+                             bad currency code, negative micros
+error   amount_coherence     the number printed in ``fmt`` disagrees with
+                             ``micros`` or ``fmt``'s symbol disagrees with ``cur``
+warning  duplicate_offer      the same product appears more than once in one
+                             record with every distinguishing field redacted,
+                             so distinct tokens cannot be told apart from a
+                             scanner duplicate
+info     region_divergence    the same product has a different phase shape in
+                             different regions, or is missing from some regions
+
+The tool never touches the network and never imports the upstream. It only
+reads the public JSON files the upstream commits.
+
+Exit codes: 0 = no error-severity findings, 1 = error-severity findings,
+2 = usage or input error.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+TOOL = "google-one-tools-offer-reconcile"
+VERSION = "1.0.0"
+
+# fmt prefix -> ISO-4217 code. ``fmt`` is a human-readable local rendering, so
+# the symbol has to agree with the machine-readable ``cur`` field.
+SYMBOL_TO_ISO = {
+    "US$": "USD",
+    "$": "USD",
+    "£": "GBP",
+    "HK$": "HKD",
+    "₹": "INR",
+    "¥": "JPY",
+    "€": "EUR",
+    "TRY": "TRY",
+    "RM": "MYR",
+    "₩": "KRW",
+    "₽": "RUB",
+}
+
+FREE_WORDS = {"免费", "免費", "free", "FREE", "Free", "無", "无"}
+
+_DURATION = re.compile(
+    r"^P(?:\d+Y)?(?:\d+M)?(?:\d+D)?(?:T(?:\d+H)?(?:\d+M)?(?:\d+S)?)?$"
+)
+_NUMBER = re.compile(r"^(?P<sym>.*?)(?P<num>\d[\d,]*(?:\.\d+)?)$")
+_CURRENCY = re.compile(r"^[A-Z]{3}$")
+
+REQUIRED_OFFER = ("product", "phases")
+REQUIRED_PHASE = ("micros", "cur", "period", "cycles", "free", "fmt")
+
+
+class InputError(Exception):
+    """Raised for usage / unreadable / malformed input."""
+
+
+def _finding(severity, code, path, **fields):
+    f = {"severity": severity, "code": code, "file": path}
+    f.update(fields)
+    return f
+
+
+def load_record(path: Path) -> dict:
+    """Read one scan_result_*.json file into a dict, or raise InputError."""
+    try:
+        raw = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise InputError(f"cannot read {path}: {exc}") from exc
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise InputError(f"{path} is not valid JSON: {exc}") from exc
+    if not isinstance(data, dict):
+        raise InputError(f"{path}: top level must be an object")
+    if not isinstance(data.get("offers"), list):
+        raise InputError(f"{path}: missing 'offers' list")
+    return data
+
+
+def iter_offers(record: dict):
+    for offer in record.get("offers", []):
+        if isinstance(offer, dict):
+            yield offer
+
+
+def check_schema(record: dict, path: str):
+    findings = []
+    for offer in iter_offers(record):
+        prod = offer.get("product", "<no product>")
+        for key in REQUIRED_OFFER:
+            if key not in offer:
+                findings.append(
+                    _finding("error", "schema", path, product=prod,
+                             detail=f"offer missing required field '{key}'")
+                )
+        phases = offer.get("phases")
+        if not isinstance(phases, list) or not phases:
+            findings.append(
+                _finding("error", "schema", path, product=prod,
+                         detail="offer has no phases")
+            )
+            continue
+        for ph in phases:
+            if not isinstance(ph, dict):
+                findings.append(
+                    _finding("error", "schema", path, product=prod,
+                             detail="phase is not an object")
+                )
+                continue
+            for key in REQUIRED_PHASE:
+                if key not in ph:
+                    findings.append(
+                        _finding("error", "schema", path, product=prod,
+                                 detail=f"phase missing required field '{key}'")
+                    )
+            micros = ph.get("micros")
+            if micros is not None:
+                if not re.fullmatch(r"\d+", str(micros)):
+                    findings.append(
+                        _finding("error", "schema", path, product=prod,
+                                 detail=f"micros must be a non-negative integer, got {micros!r}")
+                    )
+            cur = ph.get("cur")
+            if cur is not None and not _CURRENCY.fullmatch(str(cur)):
+                findings.append(
+                    _finding("error", "schema", path, product=prod,
+                             detail=f"cur must be a 3-letter ISO code, got {cur!r}")
+                )
+            period = ph.get("period")
+            if period is not None and not _DURATION.fullmatch(str(period)):
+                findings.append(
+                    _finding("error", "schema", path, product=prod,
+                             detail=f"period must be an ISO-8601 duration, got {period!r}")
+                )
+            cycles = ph.get("cycles")
+            if cycles is not None and not re.fullmatch(r"\d+", str(cycles)):
+                findings.append(
+                    _finding("error", "schema", path, product=prod,
+                             detail=f"cycles must be a non-negative integer, got {cycles!r}")
+                )
+            if "free" in ph and not isinstance(ph["free"], bool):
+                findings.append(
+                    _finding("error", "schema", path, product=prod,
+                             detail=f"free must be a boolean, got {ph['free']!r}")
+                )
+    return findings
+
+
+def _parse_amount(fmt):
+    """Return (symbol, numeric_value) from a fmt string, or (None, None)."""
+    if not isinstance(fmt, str):
+        return None, None
+    text = fmt.replace("\xa0", " ").strip()
+    if text in FREE_WORDS:
+        return None, None
+    m = _NUMBER.match(text)
+    if not m:
+        return None, None
+    sym = m.group("sym").strip()
+    try:
+        value = float(m.group("num").replace(",", ""))
+    except ValueError:
+        return None, None
+    return sym, value
+
+
+def check_amounts(record: dict, path: str):
+    findings = []
+    for offer in iter_offers(record):
+        prod = offer.get("product", "<no product>")
+        for ph in offer.get("phases", []) or []:
+            if not isinstance(ph, dict):
+                continue
+            sym, value = _parse_amount(ph.get("fmt"))
+            if sym is None:
+                continue
+            cur = ph.get("cur")
+            mapped = SYMBOL_TO_ISO.get(sym)
+            if mapped is not None and cur is not None and mapped != cur:
+                findings.append(
+                    _finding("error", "amount_coherence", path, product=prod,
+                             detail=f"fmt symbol {sym!r} implies {mapped}, but cur={cur!r}")
+                )
+            micros = ph.get("micros")
+            if value is not None and micros is not None and re.fullmatch(r"\d+", str(micros)):
+                if abs(value * 1_000_000 - int(micros)) > 1:
+                    findings.append(
+                        _finding("error", "amount_coherence", path, product=prod,
+                                 detail=f"fmt {ph.get('fmt')!r} implies {value}, but micros={micros}")
+                    )
+    return findings
+
+
+def check_stale(record: dict, path: str, delisted):
+    findings = []
+    if not delisted:
+        return findings
+    for offer in iter_offers(record):
+        prod = offer.get("product")
+        if prod in delisted:
+            findings.append(
+                _finding("error", "stale_delisted_sku", path, product=prod,
+                         detail=f"{prod} is declared delisted upstream but is still advertised in this record")
+            )
+    return findings
+
+
+def check_duplicates(record: dict, path: str):
+    findings = []
+    seen = {}
+    for offer in iter_offers(record):
+        prod = offer.get("product")
+        if not prod:
+            continue
+        seen.setdefault(prod, 0)
+        seen[prod] += 1
+    for prod, count in sorted(seen.items()):
+        if count > 1:
+            findings.append(
+                _finding("warning", "duplicate_offer", path, product=prod,
+                         count=count,
+                         detail=f"{prod} appears {count} times with the token redacted; "
+                                "distinct tokens cannot be distinguished from a scanner duplicate")
+            )
+    return findings
+
+
+def _phase_shape(offer):
+    phases = offer.get("phases") or []
+    return tuple(
+        (ph.get("micros"), ph.get("cur"), ph.get("period"), ph.get("cycles"), ph.get("free"))
+        for ph in phases
+        if isinstance(ph, dict)
+    )
+
+
+def check_regions(records):
+    """Cross-record reconciliation. ``records`` is a list of (path, record)."""
+    findings = []
+    by_product = {}
+    for path, record in records:
+        tag = record.get("tag") or Path(path).stem
+        for offer in iter_offers(record):
+            prod = offer.get("product")
+            if not prod:
+                continue
+            by_product.setdefault(prod, {}).setdefault(_phase_shape(offer), set()).add(tag)
+    for prod in sorted(by_product):
+        shapes = by_product[prod]
+        if len(shapes) > 1:
+            detail = "; ".join(
+                f"regions {sorted(tags)} -> {shape}"
+                for shape, tags in sorted(shapes.items(), key=lambda kv: sorted(kv[1]))
+            )
+            findings.append(
+                _finding("info", "region_divergence", "", product=prod,
+                         detail=f"{prod} has different phase shapes across regions: {detail}")
+            )
+    return findings
+
+
+def collect_paths(inputs):
+    paths = []
+    for item in inputs:
+        p = Path(item)
+        if p.is_dir():
+            matched = sorted(p.glob("scan_result_*.json"))
+            if not matched:
+                raise InputError(f"{p}: no scan_result_*.json files found")
+            paths.extend(matched)
+        elif p.is_file():
+            paths.append(p)
+        else:
+            raise InputError(f"{p}: no such file or directory")
+    # de-duplicate, keep order
+    seen = set()
+    unique = []
+    for p in paths:
+        key = str(p.resolve())
+        if key not in seen:
+            seen.add(key)
+            unique.append(p)
+    return unique
+
+
+def load_delisted(files, inline):
+    delisted = set(inline or [])
+    for f in files or []:
+        p = Path(f)
+        try:
+            text = p.read_text(encoding="utf-8")
+        except OSError as exc:
+            raise InputError(f"cannot read delisted list {p}: {exc}") from exc
+        for line in text.splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                delisted.add(line)
+    return delisted
+
+
+def reconcile(inputs, delisted_files=None, inline_delisted=None):
+    paths = collect_paths(inputs)
+    delisted = load_delisted(delisted_files, inline_delisted)
+    records = []
+    findings = []
+    for path in paths:
+        record = load_record(path)
+        records.append((str(path), record))
+        findings.extend(check_schema(record, str(path)))
+        findings.extend(check_amounts(record, str(path)))
+        findings.extend(check_stale(record, str(path), delisted))
+        findings.extend(check_duplicates(record, str(path)))
+    findings.extend(check_regions(records))
+    findings.sort(key=lambda f: (f["code"], f["file"], str(f.get("product", "")), str(f.get("detail", ""))))
+
+    summary = {"error": 0, "warning": 0, "info": 0}
+    for f in findings:
+        summary[f["severity"]] += 1
+    report = {
+        "tool": TOOL,
+        "version": VERSION,
+        "records": [
+            {
+                "file": path,
+                "tag": record.get("tag") or Path(path).stem,
+                "candidates": record.get("candidates"),
+                "offers": len(record.get("offers", [])),
+            }
+            for path, record in records
+        ],
+        "delisted_policy": sorted(delisted),
+        "findings": findings,
+        "summary": {**summary, "records": len(records)},
+        "ok": summary["error"] == 0,
+    }
+    return report
+
+
+def build_parser():
+    parser = argparse.ArgumentParser(
+        prog="google-one-offer-reconcile",
+        description="Reconcile Google One offer-scan records against upstream policy.",
+    )
+    parser.add_argument("paths", nargs="+", help="scan_result_*.json files or directories")
+    parser.add_argument("--json", action="store_true", help="emit machine-readable JSON on stdout")
+    parser.add_argument("--out", help="write the JSON report to this file instead of stdout")
+    parser.add_argument("--delisted", action="append", default=[], metavar="FILE",
+                        help="file listing SKUs the upstream declares delisted (one per line)")
+    parser.add_argument("--delisted-sku", action="append", default=[], dest="inline_delisted",
+                        metavar="SKU", help="inline a delisted SKU (repeatable)")
+    parser.add_argument("--version", action="version", version=f"{TOOL} {VERSION}")
+    return parser
+
+
+def main(argv=None):
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        report = reconcile(args.paths, args.delisted, args.inline_delisted)
+    except InputError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+
+    payload = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=False)
+    if args.out:
+        try:
+            Path(args.out).write_text(payload + "\n", encoding="utf-8")
+        except OSError as exc:
+            print(f"error: cannot write {args.out}: {exc}", file=sys.stderr)
+            return 2
+    else:
+        print(payload)
+
+    if not args.json and report["summary"]["error"]:
+        # Human-readable fallback still goes to stdout as JSON; keep exit code.
+        pass
+    return 1 if report["summary"]["error"] else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,0 +1,2 @@
+# SKUs the upstream README declares delisted / removed
+g1.30tb
